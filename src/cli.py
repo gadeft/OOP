@@ -10,7 +10,7 @@ class CLI:
         while True:
             line = input(f"{self.controller.get_current_directory()}:$ ")
 
-            if line == "exit" or line == "quit":
+            if line == "quit":
                 break
             result = None
             try:
