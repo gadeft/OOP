@@ -23,3 +23,11 @@ write <path> # writes a content to file. The escape sequence is '\n'
 rm [-r] <path> # deletes a file or a directory
 cd <path> # changes the curreng working directory
 ```
+
+## Dependencies
+
+```
+lark~=1.3.1
+pydantic~=2.13.4
+pathvalidate~=3.3.1
+```
