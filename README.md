@@ -13,6 +13,8 @@ The emulated file system is initialized every time you run
 <> - arguments
 [] - optionals
 
+quit # closes the program
+
 mkdir <path> # creates a directory
 touch <path> # creates a file
 ls [<path>] # list all items in a directory. If <path> is not specified it is percieved as a currend working directory
