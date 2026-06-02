@@ -12,12 +12,12 @@ class FileSystemObject(BaseModel, ABC):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     name: str
-    content: bytes | dict[str, FileSystemObject]
-    parent: FileSystemObject | None = None
 
+    content: bytes | dict[str, FileSystemObject] | None = None
+    parent: FileSystemObject | None = None
     created: datetime = Field(default_factory=datetime.now)
     last_modified: datetime = Field(default_factory=datetime.now)
-    size: int = Field(default_factory=int)
+    size: int = Field(default=0)
 
     @field_validator("name", mode="after")
     @classmethod
@@ -29,9 +29,10 @@ class FileSystemObject(BaseModel, ABC):
             raise e
 
     def model_post_init(self, context: Any, /) -> None:
-        self.size = self._eval_size()
+        self._eval_size()
 
 
     @abstractmethod
-    def _eval_size(self) -> int:
+    def _eval_size(self) -> None:
+        """Writes size into self.size"""
         pass

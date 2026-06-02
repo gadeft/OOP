@@ -1,14 +1,20 @@
-# from . import FileSystemObject
-from src.entities.file_system_object import FileSystemObject # TODO: change to previous import
+from datetime import datetime
+
+from pydantic import Field
+
+from . import FileSystemObject, Directory
+
 
 class File(FileSystemObject):
-    content: bytes
-    parent: FileSystemObject
+    parent: Directory
 
-    def _eval_size(self) -> int:
-        return len(self.content)
+    content: bytes = Field(default=b'')
 
+    def _eval_size(self) -> None:
+        self.size = len(self.content)
+        self.parent._eval_size()
 
-if __name__ == "__main__":
-    file = File(name="home.,", content=b"hello")
-    print(file.content)
+    def write(self, data: bytes):
+        self.content = data
+        self._eval_size()
+        self.last_modified = datetime.now()
